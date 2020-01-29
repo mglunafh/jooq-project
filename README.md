@@ -1,13 +1,13 @@
 # jooq-project
 
-Project with PostgresQL, Flyway, jOOQ and generic application, where migration, 
-code generation and actual application are separated from one another
+Project with PostgreSQL, Flyway, jOOQ and generic application, where migration, 
+code generation and actual application are separated from one another.
 
 ## Contents
-1. Migration submodule. It contains migrations, application that performs migrations on a database, and 
+1. **Migration** submodule. It contains migrations, application that performs migrations on a database, and 
     so-called migrator capable of migrating any given (Postgres) data source to the most recent version.
-2. Codegen submodule (not invented yet).
-3. Api submodule (not invented yet).
+2. **Codegen** submodule (not fully implemented).
+3. **Api** submodule (not invented yet).
 
 ## Prerequisites
 1. Docker and Docker Compose are used to set up a containerized Postgres database instance.
@@ -24,10 +24,10 @@ code generation and actual application are separated from one another
     this will do the trick.
 
 ## Useful commands
-1. To break into the database container with name `some-pg`: `docker exec -it some-pg bash`.
-2. To break into a database of container with name `some-pg`: `docker exec -it some-pg psql $DB_NAME -U $DB_USER`.
+1. Break into the database container with name `some-pg`: `docker exec -it some-pg bash`.
+2. Break into a database of container with name `some-pg`: `docker exec -it some-pg psql $DB_NAME -U $DB_USER`.
 3. It may happen that container refuses to create database with your custom credentials, and 
     only (user 'postgres') and/or (database 'postgres') exist. One possible reason could be 
     docker-compose created volume and database with default parameters. 
     Helpful link: https://github.com/docker-library/postgres/issues/203. Helpful commands: `docker inspect` 
-    and `docker volume prune` (<-- WATCH OUT OF THE LATTER ONE!).
+    and `docker volume prune` (<-- WATCH OUT FOR THE LATTER ONE!).
