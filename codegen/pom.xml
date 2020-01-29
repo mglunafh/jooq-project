@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.some.generic.jooq</groupId>
+    <artifactId>jooq-project</artifactId>
+    <version>0.1</version>
+  </parent>
+
+  <artifactId>codegen</artifactId>
+  <packaging>jar</packaging>
+  <name>Jooq code-generation module</name>
+  <description>Jooq code-generation module powered up by Spring Boot</description>
+
+  <properties>
+    <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
+    <jooq.version>3.12.3</jooq.version>
+
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.jooq</groupId>
+      <artifactId>jooq</artifactId>
+      <version>${jooq.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jooq</groupId>
+      <artifactId>jooq-meta</artifactId>
+      <version>${jooq.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jooq</groupId>
+      <artifactId>jooq-codegen</artifactId>
+      <version>${jooq.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.opentable.components</groupId>
+      <artifactId>otj-pg-embedded</artifactId>
+      <version>0.13.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.some.generic.jooq</groupId>
+      <artifactId>migration</artifactId>
+      <version>0.1</version>
+<!--      <scope>provided</scope>-->
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jooq</groupId>
+        <artifactId>jooq-codegen-maven</artifactId>
+        <version>${jooq.version}</version>
+
+        <!-- The plugin should hook into the generate goal -->
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+
+        <dependencies>
+          <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4.1212</version>
+          </dependency>
+        </dependencies>
+
+        <configuration>
+          <jdbc>
+            <driver>org.postgresql.Driver</driver>
+            <url>jdbc:postgresql://${DB_HOST}:5432/${DB_NAME}</url>
+            <user>${DB_USER}</user>
+            <password>${DB_PASS}</password>
+          </jdbc>
+
+          <generator>
+            <database>
+              <includes>.*</includes>
+              <excludes></excludes>
+              <inputSchema>public</inputSchema>
+            </database>
+            <target>
+              <packageName>org.some.generic.jooq.generated</packageName>
+              <directory>target/generated-sources/jooq</directory>
+            </target>
+          </generator>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>
