@@ -25,5 +25,9 @@ code generation and actual application are separated from one another
 
 ## Useful commands
 1. To break into the database container with name `some-pg`: `docker exec -it some-pg bash`.
-
 2. To break into a database of container with name `some-pg`: `docker exec -it some-pg psql $DB_NAME -U $DB_USER`.
+3. It may happen that container refuses to create database with your custom credentials, and 
+    only (user 'postgres') and/or (database 'postgres') exist. One possible reason could be 
+    docker-compose created volume and database with default parameters. 
+    Helpful link: https://github.com/docker-library/postgres/issues/203. Helpful commands: `docker inspect` 
+    and `docker volume prune` (<-- WATCH OUT OF THE LATTER ONE!).
