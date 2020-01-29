@@ -29,7 +29,8 @@ public class Migrator {
   }
 
   private static Properties getValidatedProperties() {
-    try (InputStream stream = Migrator.class.getClassLoader().getResourceAsStream("application.properties")) {
+
+    try (InputStream stream = Migrator.class.getResourceAsStream("migration.properties")) {
       Properties prop = new Properties();
       prop.load(stream);
 
