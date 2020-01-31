@@ -14,7 +14,7 @@ import org.postgresql.ds.PGSimpleDataSource;
 import org.some.generic.jooq.migration.Migrator;
 
 
-public class CodeGeneration {
+class CodeGeneration {
 
   private static final String DB_DRIVER = "org.postgresql.Driver";
   private static final String DB_NAME = "postgres";
@@ -48,7 +48,7 @@ public class CodeGeneration {
             )
             .withTarget(new Target()
                 .withPackageName("org.some.generic.jooq.generated")
-                .withDirectory("target/generated-sources/jooq")
+                .withDirectory("codegen/target/generated-sources/jooq")
             )
         )
         .withLogging(Logging.DEBUG);
@@ -76,7 +76,7 @@ public class CodeGeneration {
     EmbeddedPostgres start = EmbeddedPostgres.builder()
         .setPort(PORT_NUMBER)
         .start();
-    DataSource dataSource = start.getPostgresDatabase();
+    DataSource dataSource = start.getDatabase(USER, DB_NAME);
     return dataSource;
   }
 }
