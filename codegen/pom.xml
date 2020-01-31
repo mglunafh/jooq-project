@@ -11,7 +11,7 @@
   <artifactId>codegen</artifactId>
   <packaging>jar</packaging>
   <name>Jooq code-generation module</name>
-  <description>Jooq code-generation module powered up by Spring Boot</description>
+  <description>Jooq code-generation module</description>
 
   <properties>
     <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
