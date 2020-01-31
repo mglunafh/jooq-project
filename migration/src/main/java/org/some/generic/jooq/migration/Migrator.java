@@ -6,10 +6,10 @@ import org.flywaydb.core.Flyway;
 
 public class Migrator {
 
-  private static final String PREFIX = "some-";
-  private static final String LOCATIONS = "classpath:db/migration";
-  private static final String SCHEMA = "some_schema";
-  private static final String TABLE = "schema_version";
+  public static final String PREFIX = "some-";
+  public static final String LOCATIONS = "classpath:db/migration";
+  public static final String SCHEMA = "some_schema";
+  public static final String TABLE = "schema_version";
 
   private final Flyway flyway;
 
