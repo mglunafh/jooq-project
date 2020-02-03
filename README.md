@@ -6,7 +6,9 @@ code generation and actual application are separated from one another.
 ## Contents
 1. **Migration** submodule. It contains migrations, application that performs migrations on a database, and 
     so-called migrator capable of migrating any given (Postgres) data source to the most recent version.
-2. **Codegen** submodule (not fully implemented).
+2. **Codegen** submodule. It contains code generation tool. It performs migration of embedded PostgreSQL 
+    database using **migration** submodule, and then runs jOOQ generator to produce classes that reflect 
+    database structure.
 3. **Api** submodule (not invented yet).
 
 ## Prerequisites
@@ -22,6 +24,8 @@ code generation and actual application are separated from one another.
     to perform migrations.
 3. After you are done, you may want to shut docker container down. If so, run `docker-compose down`, 
     this will do the trick.
+4. Run `org.some.generic.jooq.codegen.CodeGeneration` from `codegen` submodule to produce some 
+    nice jOOQ classes that are to be used by other projects.
 
 ## Useful commands
 1. Break into the database container with name `some-pg`: `docker exec -it some-pg bash`.

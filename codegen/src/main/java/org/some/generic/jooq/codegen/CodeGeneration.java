@@ -10,7 +10,6 @@ import org.jooq.meta.jaxb.Generator;
 import org.jooq.meta.jaxb.Jdbc;
 import org.jooq.meta.jaxb.Logging;
 import org.jooq.meta.jaxb.Target;
-import org.postgresql.ds.PGSimpleDataSource;
 import org.some.generic.jooq.migration.Migrator;
 
 
@@ -61,22 +60,11 @@ class CodeGeneration {
     migrator.migrate();
   }
 
-  private static DataSource getRealDataSource() {
-    PGSimpleDataSource source = new PGSimpleDataSource();
-    source.setServerName(System.getenv("DB_HOST"));
-    source.setDatabaseName(System.getenv("DB_NAME"));
-    source.setUser(System.getenv("DB_USER"));
-    source.setPassword(System.getenv("DB_PASS"));
-
-    return source;
-  }
-
   private static DataSource getPostres() throws IOException {
 
     EmbeddedPostgres start = EmbeddedPostgres.builder()
         .setPort(PORT_NUMBER)
         .start();
-    DataSource dataSource = start.getDatabase(USER, DB_NAME);
-    return dataSource;
+    return start.getDatabase(USER, DB_NAME);
   }
 }
