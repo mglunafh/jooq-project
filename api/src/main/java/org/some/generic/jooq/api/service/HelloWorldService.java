@@ -1,7 +1,8 @@
 package org.some.generic.jooq.api.service;
 
-import static org.some.generic.jooq.generated.tables.SomePeople.SOME_PEOPLE;
-import static org.some.generic.jooq.generated.tables.SomeTable.SOME_TABLE;
+import static org.some.generic.jooq.generated.Tables.CITY;
+import static org.some.generic.jooq.generated.Tables.SOME_PEOPLE;
+import static org.some.generic.jooq.generated.Tables.SOME_TABLE;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,42 +13,23 @@ import lombok.Getter;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
-import org.some.generic.jooq.api.entity.RecordConverter;
-import org.some.generic.jooq.api.utils.TemplateProcessor;
+import org.some.generic.jooq.api.entity.City;
 import org.some.generic.jooq.api.entity.Person;
+import org.some.generic.jooq.api.entity.RecordConverter;
 import org.some.generic.jooq.api.entity.Some;
+import org.some.generic.jooq.api.utils.TemplateProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @Getter
 public class HelloWorldService {
 
-  @Value("${name:World}")
-  private String name;
-
-  @Value("${DB_HOST}")
-  private String host;
-
-  @Value("${DB_NAME}")
-  private String dbName;
-
-  @Value("${DB_USER}")
-  private String dbUser;
-
-  @Value("${DB_PASS}")
-  private String dbPassword;
-
   @Autowired
   private TemplateProcessor processor;
 
   @Autowired
   private DSLContext context;
-
-  public String getHelloMessage() {
-    return "Hello " + this.name;
-  }
 
   public String getBody() {
     Map<String, Object> params = new HashMap<>();
@@ -58,7 +40,18 @@ public class HelloWorldService {
     List<Person> people = getPeople();
     params.put("people", people);
 
+    List<City> cities = getCities();
+    params.put("cities", cities);
+
     return processor.createEmailBody("mail/contents", params);
+  }
+
+  private List<City> getCities() {
+    return context.select()
+        .from(CITY)
+        .fetchStream()
+        .map(RecordConverter.TO_CITY)
+        .collect(Collectors.toList());
   }
 
   private List<Some> getSomeTableContents() {

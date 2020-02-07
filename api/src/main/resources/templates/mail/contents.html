@@ -193,6 +193,19 @@
                     <span class="paramValue" th:text="${person.getLastName()}">Guy</span>
                   </td>
                 </tr>
+                <tr>
+                  <td>
+                    <p style="font-family: sans-serif; font-size: 22px; font-weight: bold; text-align: center; margin: 0; margin-top: 26px; margin-bottom: 30px;">
+                      Cities</p>
+                  </td>
+                </tr>
+                <tr th:each="city : ${cities}">
+                  <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
+                    <p class="paramItem">
+                      <span class="paramName" th:text="${city.getName()}">default city</span>
+                    </p>
+                  </td>
+                </tr>
                 </tbody>
               </table>
             </td>
