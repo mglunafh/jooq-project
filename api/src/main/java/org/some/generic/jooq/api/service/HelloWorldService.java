@@ -12,7 +12,8 @@ import lombok.Getter;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
-import org.some.generic.jooq.api.TemplateProcessor;
+import org.some.generic.jooq.api.entity.RecordConverter;
+import org.some.generic.jooq.api.utils.TemplateProcessor;
 import org.some.generic.jooq.api.entity.Person;
 import org.some.generic.jooq.api.entity.Some;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +67,8 @@ public class HelloWorldService {
         .fetch();
 
     List<Some> list = new ArrayList<>();
-    for (Record r : fetch) {
-      list.add(new Some(r.getValue(SOME_TABLE.ID), r.getValue(SOME_TABLE.NAME)));
+    for (Record rec : fetch) {
+      list.add(RecordConverter.TO_SOME.apply(rec));
     }
     return list;
   }
@@ -76,9 +77,7 @@ public class HelloWorldService {
     return context.select()
         .from(SOME_PEOPLE)
         .fetchStream()
-        .map(record -> new Person(record.get(SOME_PEOPLE.ID),
-            record.get(SOME_PEOPLE.FIRSTNAME),
-            record.get(SOME_PEOPLE.LASTNAME)))
+        .map(RecordConverter.TO_PERSON)
         .collect(Collectors.toList());
   }
 }

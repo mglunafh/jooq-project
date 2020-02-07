@@ -1,4 +1,4 @@
-package org.some.generic.jooq.api;
+package org.some.generic.jooq.api.utils;
 
 import java.util.Locale;
 import java.util.Map;
