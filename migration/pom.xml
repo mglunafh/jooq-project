@@ -16,7 +16,7 @@
   <properties>
     <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
     <flyway.version>5.2.4</flyway.version>
-    <postgres.version>42.2.9</postgres.version>
+    <postgres.version>42.3.3</postgres.version>
   </properties>
 
   <dependencies>
